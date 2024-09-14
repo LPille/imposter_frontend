@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
-import { GameContext } from "../../contexts/GameContext";
+import { GameContext, GameContextType } from "../../contexts/GameContext"; // Assuming GameContextType exists
 import styles from "./Lobby.module.scss";
 import Button from "@mui/joy/Button";
 import { logOut } from "../../assets/icons/icons";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 
-function Lobby() {
+const Lobby: React.FC = () => {
+  // Adding types to destructured values from GameContext
   const { users, user, handleStartGame, loggedIn, handleLogOut } =
-    useContext(GameContext);
+    useContext<GameContextType>(GameContext);
 
   const clickStartGame = () => {
     handleStartGame();
@@ -25,8 +26,8 @@ function Lobby() {
           Log out
         </Button>
       </div>
-      <p>User: {user.name}</p>
-      <p>id: {user.id}</p>
+      <p>User: {user?.name}</p>
+      <p>id: {user?.id}</p>
 
       {loggedIn ? <p>Logged in</p> : <p>Not logged in</p>}
 
@@ -51,6 +52,6 @@ function Lobby() {
       </div>
     </div>
   );
-}
+};
 
 export default Lobby;
