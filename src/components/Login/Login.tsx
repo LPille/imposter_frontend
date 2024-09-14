@@ -1,14 +1,14 @@
-import React, { useState, useContext } from "react";
-import { GameContext } from "../../contexts/GameContext";
-import styles from "./Login.module.scss";
+import React, { useState, useContext, FormEvent } from "react";
+import { GameContext, GameContextType } from "../../contexts/GameContext";
+import styles from "./login.module.scss";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
 
-function Login() {
-  const { loggedIn, handleLogin } = useContext(GameContext);
-  const [username, setUsername] = useState("");
+const Login: React.FC = () => {
+  const { loggedIn, handleLogin } = useContext(GameContext) as GameContextType;
+  const [username, setUsername] = useState<string>("");
 
-  const handleClickLogin = (e) => {
+  const handleClickLogin = (e: FormEvent<HTMLFormElement>) => {
     handleLogin(username);
     e.preventDefault();
   };
@@ -39,6 +39,6 @@ function Login() {
       </form>
     </div>
   );
-}
+};
 
 export default Login;

@@ -1,12 +1,13 @@
-// src/App.js
 import React, { useContext } from "react";
 import Login from "./components/Login/Login";
 import Lobby from "./components/Lobby/Lobby";
 import Game from "./components/Game/Game";
-import { GameContext } from "./contexts/GameContext";
+import { GameContext, GameContextType } from "./contexts/GameContext";
 
-function App() {
-  const { loggedIn, gameIsRunning } = useContext(GameContext);
+const App: React.FC = () => {
+  const { loggedIn, gameIsRunning } = useContext(
+    GameContext
+  ) as GameContextType;
 
   if (!loggedIn) {
     return <Login />;
@@ -17,6 +18,6 @@ function App() {
   }
 
   return <Game />;
-}
+};
 
 export default App;
