@@ -1,17 +1,20 @@
 {
   "compilerOptions": {
-    "target": "ES6", // Set your desired ECMAScript version
-    "lib": ["dom", "dom.iterable", "esnext"], // Make sure DOM and ES libraries are included
-    "allowJs": true, // Allows compiling JavaScript files
-    "jsx": "react-jsx", // JSX setting for React 17+
-    "strict": true, // Enables strict type checking
-    "moduleResolution": "node", // Resolve modules in Node.js-style
-    "isolatedModules": true, // Ensures that each file can be transpiled separately
-    "noEmit": true, // Prevent emitting JS files during compilation
-    "esModuleInterop": true, // Allows default imports from CommonJS modules
-    "skipLibCheck": true, // Skip type checking for node_modules
-    "forceConsistentCasingInFileNames": true // Enforce case sensitivity in file names
+    "target": "es6",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "jsx": "react-jsx"
   },
-  "include": ["src"], // Make sure TypeScript checks the src directory
-  "exclude": ["node_modules"] // Exclude node_modules directory
+  "include": ["src", "src/declaration.d.ts"],
+  "exclude": ["node_modules"]
 }
