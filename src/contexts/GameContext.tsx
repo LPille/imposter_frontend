@@ -52,6 +52,7 @@ export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
   const [imposter, setImposter] = useState<User | null>(null);
   const [gameIsRunning, setGameIsRunning] = useState<boolean>(false);
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
+
   const socket = useContext(SocketContext);
 
   const handleLoginAccepted = useCallback((user: User) => {
