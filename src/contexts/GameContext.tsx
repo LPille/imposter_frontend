@@ -1,4 +1,148 @@
-import React, {
+// src/context/GameContext.tsx
+import React, { createContext, useEffect, useState, ReactNode } from "react";
+import {
+  connectSocket,
+  disconnectSocket,
+  emitEvent,
+  onEvent,
+  offEvent,
+} from "../services/socketService";
+import { Socket } from "socket.io-client";
+
+interface Player {
+  name: string;
+  isImposter?: boolean;
+}
+
+interface GameContextTypes {
+  players: Player[];
+  roomCode: string;
+  isInLobby: boolean;
+  playerName: string;
+  isAdmin: boolean;
+  setPlayerName: (name: string) => void;
+  setRoomCode: (code: string) => void;
+  setIsInLobby: (inLobby: boolean) => void;
+  createRoom: () => void;
+  joinRoom: (code: string) => void;
+  startGame: () => void;
+  nextRound: () => void;
+  stopGame: () => void;
+  logout: () => void;
+}
+
+interface GameContextProviderProps {
+  children: ReactNode;
+}
+
+const GameContext = createContext<GameContextTypes>({} as GameContextTypes);
+
+const GameContextProvider = ({ children }: GameContextProviderProps) => {
+  const [socket, setSocket] = useState<Socket | null>(null);
+  const [players, setPlayers] = useState<Player[]>([]);
+  const [roomCode, setRoomCode] = useState(
+    localStorage.getItem("roomCode") || ""
+  );
+  const [isInLobby, setIsInLobby] = useState(
+    !!localStorage.getItem("roomCode")
+  );
+  const [playerName, setPlayerName] = useState(
+    localStorage.getItem("playerName") || ""
+  );
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  /*   useEffect(() => {
+    const newSocket = connectSocket();
+    setSocket(newSocket);
+
+    onEvent("PLAYER_LIST", (playerList: Player[]) => {
+      setPlayers(playerList);
+    });
+
+    return () => {
+      offEvent("PLAYER_LIST");
+      disconnectSocket();
+    };
+  }, []);
+ */
+  const createRoom = () => {
+    if (socket) {
+      emitEvent("CREATE_ROOM");
+      onEvent("ROOM_CREATED", (code: string) => {
+        setRoomCode(code);
+        setIsInLobby(true);
+        setIsAdmin(true);
+        localStorage.setItem("roomCode", code);
+        localStorage.setItem("playerName", playerName);
+      });
+    }
+  };
+
+  const joinRoom = (code: string) => {
+    if (socket) {
+      emitEvent("JOIN_ROOM", code);
+      onEvent("ROOM_JOINED", (success: boolean) => {
+        if (success) {
+          setRoomCode(code);
+          setIsInLobby(true);
+          localStorage.setItem("roomCode", code);
+          localStorage.setItem("playerName", playerName);
+        }
+      });
+    }
+  };
+
+  const startGame = () => {
+    if (socket && isAdmin) {
+      emitEvent("START_GAME", roomCode);
+    }
+  };
+
+  const nextRound = () => {
+    if (socket && isAdmin) {
+      emitEvent("NEXT_ROUND", roomCode);
+    }
+  };
+
+  const stopGame = () => {
+    if (socket && isAdmin) {
+      emitEvent("STOP_GAME", roomCode);
+    }
+  };
+
+  const logout = () => {
+    localStorage.removeItem("playerName");
+    localStorage.removeItem("roomCode");
+    setPlayerName("");
+    setRoomCode("");
+    setIsInLobby(false);
+  };
+
+  const context = {
+    players,
+    roomCode,
+    isInLobby,
+    playerName,
+    setPlayerName,
+    setRoomCode,
+    setIsInLobby,
+    isAdmin,
+    createRoom,
+    joinRoom,
+    startGame,
+    nextRound,
+    stopGame,
+    logout,
+  };
+
+  return (
+    <GameContext.Provider value={context}>{children}</GameContext.Provider>
+  );
+};
+
+export { GameContext, GameContextProvider };
+
+/* import React, {
   createContext,
   useContext,
   useCallback,
@@ -160,3 +304,4 @@ export const GameProvider: React.FC<GameProviderProps> = ({ children }) => {
 
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
 };
+ */

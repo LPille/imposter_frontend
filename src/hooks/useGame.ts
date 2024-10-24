@@ -1,6 +1,5 @@
-// src/hooks/useGame.ts
-import { useState, useEffect } from "react";
-import { io, Socket } from "socket.io-client";
+/* import { useState, useEffect } from "react";
+import { useSocket } from "../services/socketService";
 
 interface Player {
   name: string;
@@ -8,7 +7,7 @@ interface Player {
 }
 
 export const useGame = () => {
-  const [socket, setSocket] = useState<Socket | null>(null);
+  const { socket } = useSocket();
   const [players, setPlayers] = useState<Player[]>([]);
   const [roomCode, setRoomCode] = useState(
     localStorage.getItem("roomCode") || ""
@@ -22,22 +21,22 @@ export const useGame = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const newSocket = io("http://localhost:5000");
-    setSocket(newSocket);
+    if (!socket) return;
 
-    newSocket.on("player-list", (playerList: Player[]) => {
+    socket.on("PLAYER_LIST", (playerList: Player[]) => {
       setPlayers(playerList);
     });
 
     return () => {
-      newSocket.close();
+      socket.off("PLAYER_LIST");
     };
-  }, []);
+  }, [socket]);
 
   const createRoom = () => {
     if (socket) {
-      socket.emit("create-room");
-      socket.on("room-created", (code: string) => {
+      socket.emit("CREATE_ROOM");
+   
+      socket.on("ROOM_CREATED", (code: string) => {
         setRoomCode(code);
         setIsInLobby(true);
         setIsAdmin(true);
@@ -49,8 +48,8 @@ export const useGame = () => {
 
   const joinRoom = (code: string) => {
     if (socket) {
-      socket.emit("join-room", code);
-      socket.on("room-joined", (success: boolean) => {
+      socket.emit("JOIN_ROOM", code);
+      socket.on("ROOM_JOINED", (success: boolean) => {
         if (success) {
           setRoomCode(code);
           setIsInLobby(true);
@@ -61,9 +60,21 @@ export const useGame = () => {
     }
   };
 
+  const nextRound = () => {
+    if (socket && isAdmin) {
+      socket.emit("NEXT_ROUND", roomCode);
+    }
+  };
+
   const startGame = () => {
     if (socket && isAdmin) {
-      socket.emit("start-game", roomCode);
+      socket.emit("START_GAME", roomCode);
+    }
+  };
+
+  const stopGame = () => {
+    if (socket && isAdmin) {
+      socket.emit("STOP_GAME", roomCode);
     }
   };
 
@@ -81,6 +92,10 @@ export const useGame = () => {
     isInLobby,
     playerName,
     setPlayerName,
+    setRoomCode,
+    setIsInLobby,
+    nextRound,
+    stopGame,
     isAdmin,
     createRoom,
     joinRoom,
@@ -88,3 +103,4 @@ export const useGame = () => {
     logout,
   };
 };
+ */

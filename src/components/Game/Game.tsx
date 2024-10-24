@@ -1,39 +1,34 @@
 import React, { useEffect, useState, useContext } from "react";
-import { GameContext, GameContextType } from "../../contexts/GameContext";
 import styles from "./game.module.scss";
+import { useNavigate } from "react-router-dom";
+import { GameContext } from "../../contexts/GameContext";
 
 const Game: React.FC = () => {
   const [word, setWord] = useState<string>("");
   const [isImposter, setIsImposter] = useState<boolean>(false);
-  const { currentWord, imposter, user, handleNextRound, handleStopGame } =
-    useContext(GameContext) as GameContextType;
 
-  useEffect(() => {
-    if (imposter?.id === user?.id) {
-      setWord("imposter");
-      setIsImposter(true);
-    } else {
-      setWord(currentWord);
-      setIsImposter(false);
-    }
-  }, [user, imposter, currentWord]);
-
-  const clickNextRound = () => {
-    console.log("Next Round");
-    handleNextRound();
-  };
-
-  const clickStopGame = () => {
-    console.log("Stop Game");
-    handleStopGame();
-  };
+  const {
+    players,
+    isAdmin,
+    playerName,
+    startGame,
+    stopGame,
+    nextRound,
+    roomCode,
+    logout,
+  } = useContext(GameContext);
+  const navigate = useNavigate();
 
   return (
     <div className={styles.container}>
-      <h1>Game {user?.name}</h1>
+      <h1>Game {playerName}</h1>
       {isImposter ? <p>Imposter</p> : <p>{word}</p>}
-      <button onClick={clickNextRound}>Next Round</button>
-      <button onClick={clickStopGame}>Stop Game</button>
+      {isAdmin && (
+        <div className={styles.adminActions}>
+          <button onClick={nextRound}>Next Round</button>
+          <button onClick={stopGame}>Stop Game</button>
+        </div>
+      )}
     </div>
   );
 };
