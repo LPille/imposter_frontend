@@ -5,13 +5,7 @@ import React, {
   useState,
   ReactNode,
 } from "react";
-import {
-  connectSocket,
-  disconnectSocket,
-  onEvent,
-  offEvent,
-  emitEvent,
-} from "../services/socketService";
+import { connectSocket, disconnectSocket } from "../services/socketService";
 import { Socket } from "socket.io-client";
 
 interface SocketContextProps {
@@ -40,15 +34,15 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   }, []);
 
   const emit = (event: string, data?: any) => {
-    emitEvent(event, data);
+    socket?.emit(event, data);
   };
 
   const on = (event: string, callback: (data: any) => void) => {
-    onEvent(event, callback);
+    socket?.on(event, callback);
   };
 
   const off = (event: string) => {
-    offEvent(event);
+    socket?.off(event);
   };
 
   return (

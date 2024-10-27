@@ -1,0 +1,25 @@
+.roomContainer {
+  margin: 0 auto;
+  gap: 18px;
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  text-align: center;
+}
+.roomContainer h2 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-size: 28px;
+  font-style: normal;
+}
+
+.actionContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  width: 100%;
+  justify-content: center;
+}

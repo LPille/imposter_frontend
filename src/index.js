@@ -2,16 +2,16 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import { SocketProvider } from "./contexts/SocketContext";
-import { GameContextProvider } from "./contexts/GameContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const queryClient = new QueryClient();
+
+// Socket Provider
 root.render(
-  <React.StrictMode>
-    <SocketProvider>
-      <GameContextProvider>
-        <App />
-      </GameContextProvider>
-    </SocketProvider>
-  </React.StrictMode>
+  <QueryClientProvider client={queryClient}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </QueryClientProvider>
 );

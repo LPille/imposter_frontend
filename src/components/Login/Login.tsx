@@ -1,104 +1,69 @@
-import React, { useState, FormEvent, useContext } from "react";
+import React, { useState, FormEvent, useContext, useEffect } from "react";
 import styles from "./login.module.scss";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
 import { useNavigate } from "react-router-dom";
-import { GameContext } from "../../contexts/GameContext";
 
-const Login: React.FC = () => {
-  const [username, setUsername] = useState("");
-  const [inputCode, setInputCode] = useState("");
+import { useAtom } from "jotai";
+import { userIdAtom, setUserIdAtom } from "../../atoms/userAtom";
+import { v4 as uuidv4 } from "uuid";
+import { User } from "../../types/User";
+import { useCreateUser, useUserDetails } from "../../hooks/useUser";
 
-  const { playerName, setPlayerName, createRoom, joinRoom } =
-    useContext(GameContext);
+const Login = () => {
+  const [name, setName] = useState("");
+  const [_, setUserId] = useAtom(setUserIdAtom);
+
+  const { mutate: createUser } = useCreateUser();
+  const { data: user } = useUserDetails();
 
   const navigate = useNavigate();
 
-  const handleCreateRoom = () => {
-    createRoom();
-    navigate("/lobby");
-  };
+  useEffect(() => {
+    if (user) {
+      navigate("/lobby");
+    }
+  }, [user, navigate]);
 
-  const handleJoinRoom = () => {
-    joinRoom(inputCode);
-    navigate("/lobby");
+  const handleLogin = () => {
+    const newUser: User = { name, userId: uuidv4() };
+    setUserId(newUser.userId);
+    createUser(newUser);
   };
-
-  const submitName = (e: FormEvent<HTMLFormElement>) => {
-    setPlayerName(username);
-    e.preventDefault();
-  };
-
-  /*   const handleClickLogin = (e: FormEvent<HTMLFormElement>) => {
-    //handleLogin(username);
-    e.preventDefault();
-  }; */
 
   return (
     <div className={styles.section}>
-      {!playerName ? (
-        <div className={styles.nameContainer}>
-          <h1>Login</h1>
-
-          <form onSubmit={submitName}>
-            <Input
-              color="warning"
-              sx={{ "--Input-decoratorChildHeight": "45px" }}
-              placeholder="Name"
-              size="lg"
-              variant="soft"
-              onChange={(e) => setUsername(e.target.value)}
-              value={username}
-              endDecorator={
-                <Button
-                  variant="solid"
-                  color="warning"
-                  type="submit"
-                  sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
-                >
-                  Weiter
-                </Button>
-              }
-            />
-          </form>
-        </div>
-      ) : (
-        <div className={styles.roomContainer}>
-          <h2>Hello {playerName}</h2>
-          <div className={styles.actions}>
-            <div className={styles.createRoomButton}>
+      {/*       {!playerName ? (
+       */}
+      <div className={styles.nameContainer}>
+        <h1>Login</h1>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleLogin();
+          }}
+        >
+          <Input
+            color="warning"
+            sx={{ "--Input-decoratorChildHeight": "45px" }}
+            placeholder="Name"
+            size="lg"
+            variant="soft"
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+            endDecorator={
               <Button
+                variant="solid"
                 color="warning"
-                size="lg"
-                variant="soft"
-                onClick={handleCreateRoom}
+                type="submit"
+                sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
               >
-                Create Room
+                Continue
               </Button>
-            </div>
-            <h2>or</h2>
-            <Input
-              color="warning"
-              sx={{ "--Input-decoratorChildHeight": "45px" }}
-              placeholder="Room Code"
-              size="lg"
-              variant="soft"
-              onChange={(e) => setInputCode(e.target.value)}
-              value={inputCode}
-              endDecorator={
-                <Button
-                  variant="solid"
-                  color="warning"
-                  onClick={handleJoinRoom}
-                  sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
-                >
-                  Join Room
-                </Button>
-              }
-            />{" "}
-          </div>
-        </div>
-      )}
+            }
+          />
+        </form>
+      </div>
     </div>
   );
 };

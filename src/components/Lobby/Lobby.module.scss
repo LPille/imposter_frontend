@@ -7,6 +7,25 @@
   background-color: #ebc8a2;
 }
 
+.header h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #333;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+}
+
+.adminInfoContainer {
+  margin-top: 1.5rem;
+  position: fixed;
+  right: 24px;
+  top: 24px;
+  gap: 18px;
+  display: flex;
+  flex-direction: column;
+  z-index: 99;
+}
+
 .header {
   margin-bottom: 20px;
   position: fixed;
@@ -20,7 +39,15 @@
   gap: 24px;
 }
 
-.actionContainer {
+.gameInfos {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logoutContainer {
   display: flex;
   position: fixed;
   bottom: 12px;

@@ -1,0 +1,103 @@
+.userListContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.userListHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.iconIsOpen {
+  transform: rotate(180deg);
+}
+
+.userListInner {
+  max-width: 400px;
+  min-width: 200px;
+  margin: 0 auto;
+  background-color: #fce1c2;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border: 1px solid #ffad56;
+    background-color: #ffedda;
+  }
+
+  &.open {
+    background-color: #ffedda;
+  }
+}
+
+.userListInner h2 {
+  color: #666;
+  font-size: 1.2rem;
+}
+
+.arrowIcon {
+  transition: transform 0.3s ease;
+  &.open {
+    transform: rotate(180deg); // Rotate when open
+  }
+}
+
+.userList {
+  max-height: 300px;
+  overflow: auto;
+  margin-top: 8px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.5s ease;
+  &.show {
+    max-height: 300px;
+    margin-top: 14px;
+  }
+  &.hide {
+    max-height: 0;
+  }
+}
+
+.isOpen {
+  display: block !important;
+  height: 100%;
+}
+
+.userItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 14px;
+  background-color: #8c6c4b;
+  border-radius: 6px;
+  margin: 2px;
+
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  span {
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.btnDelete svg {
+  color: #ff9191;
+}
