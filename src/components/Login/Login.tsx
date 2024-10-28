@@ -5,7 +5,7 @@ import Button from "@mui/joy/Button";
 import { useNavigate } from "react-router-dom";
 
 import { useAtom } from "jotai";
-import { userIdAtom, setUserIdAtom } from "../../atoms/userAtom";
+import { setUserIdAtom } from "../../atoms/userAtom";
 import { v4 as uuidv4 } from "uuid";
 import { User } from "../../types/User";
 import { useCreateUser, useUserDetails } from "../../hooks/useUser";
@@ -15,7 +15,7 @@ const Login = () => {
   const [_, setUserId] = useAtom(setUserIdAtom);
 
   const { mutate: createUser } = useCreateUser();
-  const { data: user, status, error } = useUserDetails();
+  const { data: user } = useUserDetails();
 
   const navigate = useNavigate();
 
@@ -24,18 +24,6 @@ const Login = () => {
       navigate("/lobby");
     }
   }, [user, navigate]);
-
-  useEffect(() => {
-    console.log("error: ", error);
-  }, [error]);
-
-  useEffect(() => {
-    console.log("status: ", status);
-  }, [status]);
-
-  useEffect(() => {
-    console.log("user: ", user);
-  }, [user]);
 
   const handleLogin = () => {
     const newUser: User = { name, userId: uuidv4() };
