@@ -64,7 +64,7 @@
   margin: 0;
 
   &.show {
-    max-height: 300px;
+    max-height: 36vh;
     margin-top: 14px;
   }
   &.hide {
@@ -82,6 +82,7 @@
   margin: 2px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid transparent;
 
   span {
     color: white;
@@ -89,11 +90,11 @@
     font-weight: 500;
   }
   &:hover {
-    transform: scale(1.02);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border-color: #c5571c;
+    cursor: pointer;
   }
 }
 
 .btnDelete svg {
-  color: #ff9191;
+  color: #bf4949;
 }

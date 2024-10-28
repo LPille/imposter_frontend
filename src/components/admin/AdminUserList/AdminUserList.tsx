@@ -1,19 +1,19 @@
 import styles from "./playerList.module.scss";
-import { User } from "../../types/User";
-import { useDeleteUser, useUserList } from "../../hooks/useUser";
+import { User } from "../../../types/User";
+import { useLogoutUser, useUserList } from "../../../hooks/useUser";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/joy/IconButton";
 import { useState } from "react";
 import cx from "classnames";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
-export const PlayerList = () => {
+export const AdminUserList = () => {
   const { data: userList } = useUserList();
-  const { mutate: deleteUser } = useDeleteUser();
+  const { mutate: logoutUser } = useLogoutUser();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleDeleteUser = (user: User) => {
-    deleteUser(user.userId);
+    logoutUser(user.userId);
   };
 
   const toggleList = () => {
@@ -27,7 +27,7 @@ export const PlayerList = () => {
           onClick={toggleList}
         >
           <div className={styles.userListHeader}>
-            <h2>Users</h2>
+            <h2>Users {userList?.length}</h2>
             <KeyboardArrowDownIcon
               className={cx(styles.arrowIcon, isOpen && styles.open)}
             />

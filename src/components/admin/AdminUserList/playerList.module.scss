@@ -52,7 +52,7 @@
 }
 
 .userList {
-  max-height: 300px;
+  max-height: 36vh;
   overflow: auto;
   margin-top: 8px;
   list-style-type: none;
@@ -93,11 +93,11 @@
     font-weight: 500;
   }
   &:hover {
-    transform: scale(1.02);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border-color: #9a5b13;
+    cursor: pointer;
   }
 }
 
 .btnDelete svg {
-  color: #ff9191;
+  color: #bf4949;
 }

@@ -1,36 +1,28 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useEffect } from "react";
 import styles from "./lobby.module.scss";
 import Button from "@mui/joy/Button";
 import { useNavigate } from "react-router-dom";
-import { useRoom } from "../../hooks/useRoom";
-import {
-  useUserDetails,
-  useLogoutUser,
-  useDeleteUser,
-} from "../../hooks/useUser";
+import { useUserDetails, useLogoutUser } from "../../hooks/useUser";
 
 import { useAtom } from "jotai";
-import { userIdAtom, setUserIdAtom } from "../../atoms/userAtom";
-import { Input } from "@mui/joy";
-import { v4 as uuidv4 } from "uuid";
+import { setUserIdAtom } from "../../atoms/userAtom";
 import { useRoomDetail } from "../../hooks/room/useRoomDetails";
-import { Player, Room } from "../../types/Game";
-import { RoomList } from "../RoomList/RoomList";
-import { PlayerList } from "../PlayerList/PlayerList";
+import { AdminRoomList } from "../admin/AdminRoomList/AdminRoomList";
+import { AdminUserList } from "../admin/AdminUserList/AdminUserList";
 import { RoomDetails } from "../RoomDetails/RoomDetails";
 import { CreateRoom } from "../CreateRoom/CreateRoom";
+import { currentRoomIdAtom } from "../../atoms/roomAtom";
+import { useRoomUpdates } from "../../hooks/room/useRoomUpdates";
 
 const Lobby = () => {
   const { data: user, isLoading } = useUserDetails();
   const [_, setUserId] = useAtom(setUserIdAtom);
 
   const { mutate: logoutUser } = useLogoutUser();
-  const { mutate: deleteUser } = useDeleteUser();
 
-  const [roomCode, setRoomCode] = useState("");
-  const { createRoom, joinRoom } = useRoom();
-  const [currentRoomId, setCurrentRoomId] = useState<string | null>(null);
-  const { room, refetch } = useRoomDetail(currentRoomId ?? "");
+  const [currentRoomId] = useAtom(currentRoomIdAtom);
+
+  const { room } = useRoomDetail(currentRoomId ?? "");
 
   const navigate = useNavigate();
 
@@ -53,9 +45,6 @@ const Lobby = () => {
     return <div>Loading...</div>;
   }
 
-  if (!room && currentRoomId) return <div>Loading...</div>;
-  console.log("==== currentRoomId ", room);
-
   return (
     <div className={styles.section}>
       <div className={styles.header}>
@@ -63,13 +52,12 @@ const Lobby = () => {
       </div>
 
       <div className={styles.adminInfoContainer}>
-        <PlayerList />
-        <RoomList />
+        <AdminUserList />
+        <AdminRoomList />
       </div>
 
-      <CreateRoom />
+      {currentRoomId ? <RoomDetails /> : <CreateRoom />}
       <div className={styles.gameInfos}></div>
-      <RoomDetails currentRoomId={currentRoomId} />
 
       <div className={styles.logoutContainer}>
         <Button onClick={handleLogout}>Logout</Button>

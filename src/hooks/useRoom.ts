@@ -1,29 +1,36 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { Room } from "../types/Game";
 import { useSocket } from "../contexts/SocketContext";
+import { useAtom } from "jotai";
+import { currentRoomIdAtom } from "../atoms/roomAtom";
 
 export const useRoom = () => {
   const queryClient = useQueryClient();
   const { emit, on, off } = useSocket();
+  const [currentRoomId, setCurrentRoomId] = useAtom(currentRoomIdAtom);
 
   const createRoom = (roomId: string, userId: string) => {
-    console.log("useRoom Create room", roomId);
     emit("CREATE_ROOM", { roomId, userId });
-    queryClient.invalidateQueries({ queryKey: ["rooms"] });
   };
 
   const joinRoom = (roomId: string, userId: string) => {
     emit("JOIN_ROOM", { roomId, userId });
-    queryClient.invalidateQueries({ queryKey: ["rooms"] });
   };
 
-  on("ROOM_UPDATED", (room: Room) => {
-    console.log("------- -------- Check 2 Room updated!", room.roomId);
-    // queryClient.setQueryData(["room", room.roomId], room);
+  on("ROOM_CREATED", (room: Room) => {
+    setCurrentRoomId(room.roomId);
+    queryClient.invalidateQueries({ queryKey: ["rooms"] });
+    queryClient.invalidateQueries({ queryKey: ["room", room.roomId] });
+  });
+
+  on("ROOM_JOINED", (room: Room) => {
+    setCurrentRoomId(room.roomId);
+    queryClient.invalidateQueries({ queryKey: ["rooms"] });
+    queryClient.invalidateQueries({ queryKey: ["room", room.roomId] });
   });
 
   on("GAME_STARTED", (room: Room) => {
-    console.log("Game started!", room);
+    console.log("ONEVENT Game started!", room);
   });
 
   return { createRoom, joinRoom };

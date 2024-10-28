@@ -4,16 +4,20 @@
   display: flex;
   flex-direction: column;
   background-color: #f9f9f9;
+  background-color: #fce1c2;
+
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
   text-align: center;
+  max-width: 500px;
 }
 .roomContainer h2 {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
-  font-size: 28px;
   font-style: normal;
+  color: #8c6c4b;
+  font-size: 34px;
 }
 
 .actionContainer {
@@ -22,4 +26,15 @@
   gap: 12px;
   width: 100%;
   justify-content: center;
+}
+
+.createRoomButton {
+  Button {
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    &:hover {
+      border: 2px solid #9a5b13;
+      background-color: #fdf0e1;
+    }
+  }
 }

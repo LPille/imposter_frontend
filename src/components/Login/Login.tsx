@@ -15,7 +15,7 @@ const Login = () => {
   const [_, setUserId] = useAtom(setUserIdAtom);
 
   const { mutate: createUser } = useCreateUser();
-  const { data: user } = useUserDetails();
+  const { data: user, status, error } = useUserDetails();
 
   const navigate = useNavigate();
 
@@ -24,6 +24,18 @@ const Login = () => {
       navigate("/lobby");
     }
   }, [user, navigate]);
+
+  useEffect(() => {
+    console.log("error: ", error);
+  }, [error]);
+
+  useEffect(() => {
+    console.log("status: ", status);
+  }, [status]);
+
+  useEffect(() => {
+    console.log("user: ", user);
+  }, [user]);
 
   const handleLogin = () => {
     const newUser: User = { name, userId: uuidv4() };
@@ -36,7 +48,7 @@ const Login = () => {
       {/*       {!playerName ? (
        */}
       <div className={styles.nameContainer}>
-        <h1>Login</h1>
+        <h1>Set a name</h1>
         <form
           onSubmit={(e) => {
             e.preventDefault();

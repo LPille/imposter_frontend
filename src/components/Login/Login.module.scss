@@ -13,6 +13,12 @@
   gap: 28px;
   justify-content: center;
   align-items: center;
+  h1 {
+    color: #8c6c4b;
+    font-size: 34px;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 400px;
+  }
 }
 
 .input {
@@ -38,10 +44,4 @@
   align-items: center;
   gap: 16px;
   width: 100%;
-}
-.createRoomButton {
-  width: 100%;
-  button {
-    width: 100%;
-  }
 }
