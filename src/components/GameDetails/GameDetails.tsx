@@ -3,35 +3,38 @@ import { Player, Game } from "../../types/Game";
 import Button from "@mui/joy/Button";
 import { useGameDetail } from "../../hooks/game/useGameDetails";
 import { useAtom } from "jotai";
-import { currentGameIdAtom } from "../../atoms/gameAtom";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { gameIdAtom } from "../../atoms/gameAtom";
 import IconButton from "@mui/joy/IconButton";
-import { User } from "../../types/User";
-import { useLogoutUserFromGame } from "../../hooks/user/useUser";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useGameLogout } from "../../hooks/game/useGameLogout";
+import { PlayerItem } from "./PlayerItem";
+import { useGameControl } from "../../hooks/game/useGameControl";
+import cx from "classnames";
+import { GameControls } from "../GameControls/GameControls";
+import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
+import { useNavigate } from "react-router-dom";
 
 export const GameDetails = () => {
-  const [currentGameId] = useAtom(currentGameIdAtom);
+  const [currentGameId] = useAtom(gameIdAtom);
+  const navigate = useNavigate();
 
   const { game } = useGameDetail(currentGameId ?? "");
-  const { mutate: logoutUserFromGame } = useLogoutUserFromGame();
   const logoutGame = useGameLogout();
-
-  const handleStartGame = (game: Game) => {
-    console.log("Lobby startGame", game);
-  };
-
-  const handleLogoutUserFromGame = (user: User) => {
-    logoutUserFromGame(user.userId);
-  };
 
   const handleLeaveGame = () => {
     logoutGame();
   };
 
+  const handleNavigatToGame = () => {
+    navigate("/game");
+  };
   return (
-    <div className={styles.gameContainer}>
+    <div
+      className={cx(
+        styles.gameContainer,
+        game?.gameRunning && styles.gameIsRunning
+      )}
+    >
       {game && currentGameId && (
         <div className={styles.gameDetails}>
           <div className={styles.gameInfos}>
@@ -50,36 +53,30 @@ export const GameDetails = () => {
           <div className={styles.playerDetailsContainer}>
             <div className={styles.playerDetails}>
               <div className={styles.playerDetailsHeader}>
-                <h3>{game.players.length} Players</h3>
+                <h3>{game.players.length} Players in Game</h3>
               </div>
               <div>
                 <ul className={styles.playerList}>
                   {game.players &&
                     game.players.map((player: Player) => (
-                      <li key={player.userId} className={styles.playerItem}>
-                        <span className={styles.playerName}>{player.name}</span>
-                        <IconButton
-                          className={styles.btnDelete}
-                          onClick={() => handleLogoutUserFromGame(player)}
-                        >
-                          <DeleteIcon fontSize="small" />
-                        </IconButton>
-                      </li>
+                      <PlayerItem
+                        key={player.userId}
+                        player={player}
+                        isAdmin={player.userId === game.admin.userId}
+                      />
                     ))}
                 </ul>
               </div>
             </div>
           </div>
-
-          {game.gameRunning ? (
-            <p>Game is in progress...</p>
-          ) : (
+          {game.gameRunning && (
             <Button
-              variant="solid"
-              color="success"
-              onClick={() => handleStartGame(game)}
+              className={styles.navigateButton}
+              variant="outlined"
+              onClick={handleNavigatToGame}
             >
-              Start Game
+              <p>Navigate to Game</p>
+              <DoubleArrowIcon fontSize="medium" />
             </Button>
           )}
         </div>

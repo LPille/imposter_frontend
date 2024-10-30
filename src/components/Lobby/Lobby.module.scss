@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100svh;
   background-color: #ebc8a2;
 }
 
@@ -45,22 +45,6 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
-}
-
-.btnLogout {
-  svg {
-    margin-left: 4px;
-    color: #bf4949;
-    transform: rotate(180deg);
-    width: 28px;
-    height: 28px;
-  }
-}
-
-.logoutContainer {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
 }
 
 @media (max-width: 768px) {

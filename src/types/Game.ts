@@ -5,7 +5,8 @@ export interface Game {
   admin: Player;
   players: Player[];
   gameRunning: boolean;
-  word?: string;
+  word: string;
+  imposter: string[];
 }
 
 export interface Player extends User {

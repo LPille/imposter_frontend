@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./createGame.module.scss";
 import Button from "@mui/joy/Button";
 import {} from "react-router-dom";
-import { useGame } from "../../hooks/game/useGameActions";
+import { useGameControl } from "../../hooks/game/useGameControl";
 import { useUserDetails } from "../../hooks/user/useUser";
 
 import { Input } from "@mui/joy";
@@ -13,10 +13,9 @@ export const CreateGame = () => {
   const { data: user } = useUserDetails();
 
   const [gameCode, setGameCode] = useState("");
-  const { createGame, joinGame } = useGame();
+  const { createGame, joinGame } = useGameControl();
 
   const handleJoinGame = () => {
-    console.log("Lobby joinGame", user);
     if (user) {
       joinGame(gameCode);
     }
@@ -24,7 +23,6 @@ export const CreateGame = () => {
 
   const handleCreateGame = () => {
     const gameId = uuidv4().slice(0, 4);
-    console.log("Lobby createGame", gameId);
     if (user) {
       createGame(gameId);
     }

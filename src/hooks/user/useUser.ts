@@ -1,10 +1,11 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { User } from "../../types/User";
-import { userIdAtom } from "../../atoms/userAtom";
+import { setUserIdAtom, userIdAtom } from "../../atoms/userAtom";
 import { useAtom } from "jotai";
 
-const USER_URL = "http://localhost:3001/api/users";
+//const USER_URL = "http://localhost:3001/api/users";
+const USER_URL = "http://192.168.2.63:3001/api/users";
 
 const fetchUserById = async (userId: string) => {
   try {
@@ -58,7 +59,8 @@ export const useUserDetails = () => {
 
 export const useCreateUser = () => {
   const queryClient = useQueryClient();
-  const [, setUserId] = useAtom(userIdAtom);
+  const [_, setUserId] = useAtom(setUserIdAtom);
+
   return useMutation({
     mutationFn: (userData: User) => createUser(userData),
     onSuccess: (data) => {

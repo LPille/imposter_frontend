@@ -1,0 +1,77 @@
+.gameControlsContainer {
+  display: flex;
+  position: fixed;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  bottom: 38px;
+  border-radius: 50px;
+  background: #ffffff;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 48px;
+  margin-top: 20px;
+  gap: 12px;
+  z-index: 101;
+
+  p {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #8c6c4b;
+    padding: 0px;
+    font-size: 18px;
+    margin: 0px;
+  }
+
+  svg {
+    margin-left: 4px;
+    color: #6b4315;
+  }
+}
+
+.gameIsRunning {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.iconContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+
+  p {
+    margin: 0px;
+  }
+}
+
+.startGameContainer {
+  display: flex;
+  cursor: pointer;
+  position: fixed;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  bottom: 38px;
+  border-radius: 50px;
+  background: #ffffff;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 48px;
+  margin-top: 20px;
+  p {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #8c6c4b;
+    padding: 0px;
+    font-size: 22px;
+    margin: 0px;
+  }
+
+  svg {
+    margin-left: 4px;
+    color: #6b4315;
+  }
+}

@@ -1,18 +1,15 @@
-import React, { useState, FormEvent, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./login.module.scss";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
 import { useNavigate } from "react-router-dom";
 
-import { useAtom } from "jotai";
-import { setUserIdAtom } from "../../atoms/userAtom";
 import { v4 as uuidv4 } from "uuid";
 import { User } from "../../types/User";
 import { useCreateUser, useUserDetails } from "../../hooks/user/useUser";
 
 const Login = () => {
   const [name, setName] = useState("");
-  const [_, setUserId] = useAtom(setUserIdAtom);
 
   const { mutate: createUser } = useCreateUser();
   const { data: user } = useUserDetails();
@@ -27,14 +24,11 @@ const Login = () => {
 
   const handleLogin = () => {
     const newUser: User = { name, userId: uuidv4() };
-    setUserId(newUser.userId);
     createUser(newUser);
   };
 
   return (
     <div className={styles.section}>
-      {/*       {!playerName ? (
-       */}
       <div className={styles.nameContainer}>
         <h1>Set a name</h1>
         <form

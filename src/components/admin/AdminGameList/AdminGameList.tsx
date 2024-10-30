@@ -6,11 +6,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/joy/IconButton";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import cx from "classnames";
-import { useGameDelete } from "../../../hooks/game/useGameDelete";
+import { useGameControl } from "../../../hooks/game/useGameControl";
+
 export const AdminGameList = () => {
   const { data: gameList } = useGameList();
   const [isOpen, setIsOpen] = useState(false);
-  const deleteGame = useGameDelete();
+  const { deleteGame } = useGameControl();
 
   const handleDeleteGame = (game: Game) => {
     deleteGame(game.gameId);

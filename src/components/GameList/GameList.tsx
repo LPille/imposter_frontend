@@ -4,11 +4,11 @@ import { useGameList } from "../../hooks/game/useGameList";
 import { Game } from "../../types/Game";
 import LoginIcon from "@mui/icons-material/Login";
 import IconButton from "@mui/joy/IconButton";
-import { useGame } from "../../hooks/game/useGameActions";
+import { useGameControl } from "../../hooks/game/useGameControl";
 
 export const GameList = () => {
   const { data: gameList } = useGameList();
-  const { joinGame } = useGame();
+  const { joinGame } = useGameControl();
 
   return (
     <div className={styles.gameListContainer}>

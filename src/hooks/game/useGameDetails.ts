@@ -4,7 +4,8 @@ import { useSocket } from "../../contexts/SocketContext";
 import { Game } from "../../types/Game";
 import axios from "axios";
 
-const GAME_URL = "http://localhost:3001/api/games";
+//const GAME_URL = "http://localhost:3001/api/games";
+const GAME_URL = "http://192.168.2.63:3001/api/games";
 
 const fetchGameDetails = async (gameId: string): Promise<Game> => {
   const { data } = await axios.get<Game>(`${GAME_URL}/${gameId}`);
@@ -21,9 +22,8 @@ export const useGameDetail = (gameId: string) => {
     enabled: !!gameId,
   });
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (!gameId) return;
-
     const handleGameUpdate = (game: Game) => {
       queryClient.setQueryData(["game", game.gameId], game);
     };
@@ -32,7 +32,7 @@ export const useGameDetail = (gameId: string) => {
     return () => {
       off("GAME_UPDATED");
     };
-  }, [gameId, queryClient, on, off]);
+  }, [gameId, queryClient, on, off]); */
 
   return { game };
 };

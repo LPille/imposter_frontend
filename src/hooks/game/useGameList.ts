@@ -1,7 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-const GAME_URL = "http://localhost:3001/api/games";
+//const GAME_URL = "http://localhost:3001/api/games";
+const GAME_URL = "http://192.168.2.63:3001/api/games";
 
 const fetchGameList = async () => {
   const { data } = await axios.get(`${GAME_URL}`);
