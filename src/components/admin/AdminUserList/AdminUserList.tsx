@@ -1,6 +1,6 @@
 import styles from "./playerList.module.scss";
 import { User } from "../../../types/User";
-import { useLogoutUser, useUserList } from "../../../hooks/useUser";
+import { useLogoutUser, useUserList } from "../../../hooks/user/useUser";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/joy/IconButton";
 import { useState } from "react";

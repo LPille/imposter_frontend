@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { User } from "../types/User";
-import { userIdAtom } from "../atoms/userAtom";
+import { User } from "../../types/User";
+import { userIdAtom } from "../../atoms/userAtom";
 import { useAtom } from "jotai";
 
 const USER_URL = "http://localhost:3001/api/users";
@@ -80,7 +80,7 @@ export const useLogoutUser = () => {
   });
 };
 
-export const useLogoutUserFromRoom = () => {
+export const useLogoutUserFromGame = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (userId: string) => logoutUser(userId),

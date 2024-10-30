@@ -2,17 +2,20 @@ import { useEffect } from "react";
 import styles from "./lobby.module.scss";
 import Button from "@mui/joy/Button";
 import { useNavigate } from "react-router-dom";
-import { useUserDetails, useLogoutUser } from "../../hooks/useUser";
+import { useUserDetails, useLogoutUser } from "../../hooks/user/useUser";
+
+import LogoutIcon from "@mui/icons-material/Logout";
+import IconButton from "@mui/joy/IconButton";
 
 import { useAtom } from "jotai";
 import { setUserIdAtom } from "../../atoms/userAtom";
-import { useRoomDetail } from "../../hooks/room/useRoomDetails";
-import { AdminRoomList } from "../admin/AdminRoomList/AdminRoomList";
+import { useGameDetail } from "../../hooks/game/useGameDetails";
+import { AdminGameList } from "../admin/AdminGameList/AdminGameList";
 import { AdminUserList } from "../admin/AdminUserList/AdminUserList";
-import { RoomDetails } from "../RoomDetails/RoomDetails";
-import { CreateRoom } from "../CreateRoom/CreateRoom";
-import { currentRoomIdAtom } from "../../atoms/roomAtom";
-import { useRoomUpdates } from "../../hooks/room/useRoomUpdates";
+import { GameDetails } from "../GameDetails/GameDetails";
+import { CreateGame } from "../CreateGame/CreateGame";
+import { currentGameIdAtom } from "../../atoms/gameAtom";
+import { useGameUpdates } from "../../hooks/game/useGameUpdates";
 
 const Lobby = () => {
   const { data: user, isLoading } = useUserDetails();
@@ -20,9 +23,9 @@ const Lobby = () => {
 
   const { mutate: logoutUser } = useLogoutUser();
 
-  const [currentRoomId] = useAtom(currentRoomIdAtom);
+  const [currentGameId] = useAtom(currentGameIdAtom);
 
-  const { room } = useRoomDetail(currentRoomId ?? "");
+  const { game } = useGameDetail(currentGameId ?? "");
 
   const navigate = useNavigate();
 
@@ -48,20 +51,23 @@ const Lobby = () => {
   return (
     <div className={styles.section}>
       <div className={styles.header}>
+        {/*         <div className={styles.logoutContainer}>
+          <Button onClick={handleLogout}>Logout</Button>
+        </div> */}
+
+        <IconButton className={styles.btnLogout} onClick={handleLogout}>
+          <LogoutIcon fontSize="small" />
+        </IconButton>
         <h1>Welcome, {user && user.name}</h1>
       </div>
 
       <div className={styles.adminInfoContainer}>
         <AdminUserList />
-        <AdminRoomList />
+        <AdminGameList />
       </div>
 
-      {currentRoomId ? <RoomDetails /> : <CreateRoom />}
+      {currentGameId ? <GameDetails /> : <CreateGame />}
       <div className={styles.gameInfos}></div>
-
-      <div className={styles.logoutContainer}>
-        <Button onClick={handleLogout}>Logout</Button>
-      </div>
     </div>
   );
 };

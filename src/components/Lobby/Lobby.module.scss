@@ -7,14 +7,6 @@
   background-color: #ebc8a2;
 }
 
-.header h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #333;
-  font-family: "Poppins", sans-serif;
-  font-weight: 400;
-}
-
 .adminInfoContainer {
   margin-top: 1.5rem;
   position: fixed;
@@ -36,7 +28,15 @@
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: center;
-  gap: 24px;
+  gap: 8px;
+}
+
+.header h1 {
+  font-size: 2rem;
+  margin: 0px;
+  color: #333;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
 }
 
 .gameInfos {
@@ -47,11 +47,28 @@
   gap: 1rem;
 }
 
+.btnLogout {
+  svg {
+    margin-left: 4px;
+    color: #bf4949;
+    transform: rotate(180deg);
+    width: 28px;
+    height: 28px;
+  }
+}
+
 .logoutContainer {
   display: flex;
-  position: fixed;
-  bottom: 12px;
   gap: 12px;
-  width: 100%;
   justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .header {
+    top: 12px;
+
+    h1 {
+      font-size: 28px;
+    }
+  }
 }

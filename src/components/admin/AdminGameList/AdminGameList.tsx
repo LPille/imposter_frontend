@@ -1,20 +1,19 @@
 import { useState } from "react";
-import styles from "./roomList.module.scss";
-import { Room } from "../../../types/Game";
-import { useRoomList } from "../../../hooks/room/useRoomList";
+import styles from "./gameList.module.scss";
+import { Game } from "../../../types/Game";
+import { useGameList } from "../../../hooks/game/useGameList";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/joy/IconButton";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import cx from "classnames";
-import { useRoomDelete } from "../../../hooks/room/useRoomDelete";
-export const AdminRoomList = () => {
-  const { data: roomList } = useRoomList();
+import { useGameDelete } from "../../../hooks/game/useGameDelete";
+export const AdminGameList = () => {
+  const { data: gameList } = useGameList();
   const [isOpen, setIsOpen] = useState(false);
-  const deleteRoom = useRoomDelete();
+  const deleteGame = useGameDelete();
 
-  const handleDeleteRoom = (room: Room) => {
-    console.log("1. handleDeleteRoom", room.roomId);
-    deleteRoom(room.roomId);
+  const handleDeleteGame = (game: Game) => {
+    deleteGame(game.gameId);
   };
 
   const toggleList = () => {
@@ -23,14 +22,14 @@ export const AdminRoomList = () => {
 
   return (
     <>
-      {roomList && (
-        <div className={styles.roomListContainer}>
+      {gameList && (
+        <div className={styles.gameListContainer}>
           <div
-            className={cx(styles.roomListInner, isOpen && styles.open)}
+            className={cx(styles.gameListInner, isOpen && styles.open)}
             onClick={toggleList}
           >
-            <div className={styles.roomListHeader}>
-              <h2>Rooms {roomList.length}</h2>
+            <div className={styles.gameListHeader}>
+              <h2>Games {gameList.length}</h2>
               <KeyboardArrowDownIcon
                 className={cx(styles.arrowIcon, isOpen && styles.open)}
               />
@@ -38,17 +37,17 @@ export const AdminRoomList = () => {
 
             <ul
               className={cx(
-                styles.roomList,
+                styles.gameList,
                 isOpen ? styles.show : styles.hide
               )}
               onClick={(e) => e.stopPropagation()}
             >
-              {roomList?.map((room: Room) => (
-                <li key={room.roomId} className={styles.roomItem}>
-                  <span className={styles.userName}>{room.roomId}</span>
+              {gameList?.map((game: Game) => (
+                <li key={game.gameId} className={styles.gameItem}>
+                  <span className={styles.userName}>{game.gameId}</span>
                   <IconButton
                     className={styles.btnDelete}
-                    onClick={() => handleDeleteRoom(room)}
+                    onClick={() => handleDeleteGame(game)}
                   >
                     <DeleteIcon fontSize="small" />
                   </IconButton>

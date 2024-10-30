@@ -8,13 +8,13 @@ import Login from "./components/Login/Login";
 import Lobby from "./components/Lobby/Lobby";
 import Game from "./components/Game/Game";
 import "./App.scss";
-import { useUserDetails } from "./hooks/useUser";
-import { useRoomUpdates } from "./hooks/room/useRoomUpdates";
+import { useUserDetails } from "./hooks/user/useUser";
+import { useGameUpdates } from "./hooks/game/useGameUpdates";
 
 function App() {
   const { data: user, isLoading } = useUserDetails();
 
-  useRoomUpdates();
+  useGameUpdates();
 
   if (isLoading) {
     return <div>Loading...</div>;

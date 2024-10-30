@@ -1,11 +1,11 @@
-.roomListContainer {
+.gameListContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.roomListInner {
+.gameListInner {
   max-width: 400px;
   min-width: 200px;
   margin: 0 auto;
@@ -25,12 +25,12 @@
   }
 }
 
-.roomListInner h2 {
+.gameListInner h2 {
   color: #666;
   font-size: 1.2rem;
 }
 
-.roomListHeader {
+.gameListHeader {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -52,7 +52,7 @@
   }
 }
 
-.roomList {
+.gameList {
   transition: all 0.5s ease;
   display: flex;
   max-height: 300px;
@@ -72,7 +72,7 @@
   }
 }
 
-.roomItem {
+.gameItem {
   display: flex;
   align-items: center;
   justify-content: space-between;

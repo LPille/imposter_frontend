@@ -32,33 +32,6 @@ export const useGame = () => {
     };
   }, [socket]);
 
-  const createRoom = () => {
-    if (socket) {
-      socket.emit("CREATE_ROOM");
-   
-      socket.on("ROOM_CREATED", (code: string) => {
-        setRoomCode(code);
-        setIsInLobby(true);
-        setIsAdmin(true);
-        localStorage.setItem("roomCode", code);
-        localStorage.setItem("playerName", playerName);
-      });
-    }
-  };
-
-  const joinRoom = (code: string) => {
-    if (socket) {
-      socket.emit("JOIN_ROOM", code);
-      socket.on("ROOM_JOINED", (success: boolean) => {
-        if (success) {
-          setRoomCode(code);
-          setIsInLobby(true);
-          localStorage.setItem("roomCode", code);
-          localStorage.setItem("playerName", playerName);
-        }
-      });
-    }
-  };
 
   const nextRound = () => {
     if (socket && isAdmin) {

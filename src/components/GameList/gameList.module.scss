@@ -1,0 +1,83 @@
+.gameListContainer {
+}
+
+.gameListInner {
+  background-color: #ffedda;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  transition: all 0.3s ease;
+  border: 1px solid #ffad56;
+}
+
+.gameListInner h2 {
+  color: #666;
+  font-size: 1.2rem;
+}
+
+.gameListHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.gameList {
+  transition: all 0.5s ease;
+  display: flex;
+  max-height: 300px;
+  overflow: auto;
+  flex-direction: column;
+  gap: 8px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.gameItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 14px;
+  background-color: #c3a483;
+  border-radius: 6px;
+  margin: 2px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s, box-shadow 0.2s;
+  border: 1px solid transparent;
+
+  span {
+    color: #6b4315;
+    font-size: 20px;
+    font-weight: 500;
+  }
+  &:hover {
+    border-color: #6b4315;
+    cursor: pointer;
+  }
+}
+
+.btnLogIn {
+  transition: all 0.2s, box-shadow 0.2s;
+
+  span {
+    color: #6b4315;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  svg {
+    margin-left: 4px;
+    color: #6b4315;
+  }
+}
+
+@media (max-width: 768px) {
+  .gameItem {
+    span {
+      font-size: 18px;
+    }
+  }
+}

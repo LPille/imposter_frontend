@@ -1,4 +1,4 @@
-.roomContainer {
+.gameContainer {
   margin: 0 auto;
   gap: 18px;
   display: flex;
@@ -13,7 +13,7 @@
   width: 100%;
 }
 
-.roomDetails {
+.gameDetails {
   display: flex;
   flex-direction: column;
   justify-content: left;
@@ -21,34 +21,66 @@
   gap: 28px;
 }
 
-.roomInfos {
+.gameInfos {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.playerDetails {
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  align-items: flex-start;
-  gap: 12px;
-  width: 100%;
-}
-
-.roomContainer h2 {
+.gameContainer h2 {
   color: #8c6c4b;
   font-size: 28px;
   margin: 0px;
   padding: 0px;
+
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  span {
+    font-size: 24px;
+    color: #6b4315;
+    font-weight: 600;
+  }
 }
 
-.roomContainer h3 {
+.gameContainer h3 {
   color: #333;
   font-size: 22px;
   margin: 0px;
   padding: 0px;
+}
+
+.playerDetails {
+  /*   display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%; */
+
+  background-color: #ffedda;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  transition: all 0.3s ease;
+  border: 1px solid #ffad56;
+}
+
+.playerDetailsContainer {
+  width: 100%;
+}
+
+.playerDetailsHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 12px;
+  h3 {
+    color: #666;
+    font-size: 1.2rem;
+  }
 }
 
 .playerList {
@@ -99,4 +131,10 @@
 }
 .btnDelete svg {
   color: #bf4949;
+}
+
+@media (max-width: 768px) {
+  .gameContainer {
+    max-width: 290px;
+  }
 }

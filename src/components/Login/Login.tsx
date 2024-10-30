@@ -8,7 +8,7 @@ import { useAtom } from "jotai";
 import { setUserIdAtom } from "../../atoms/userAtom";
 import { v4 as uuidv4 } from "uuid";
 import { User } from "../../types/User";
-import { useCreateUser, useUserDetails } from "../../hooks/useUser";
+import { useCreateUser, useUserDetails } from "../../hooks/user/useUser";
 
 const Login = () => {
   const [name, setName] = useState("");

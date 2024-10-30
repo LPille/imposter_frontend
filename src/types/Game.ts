@@ -1,10 +1,11 @@
 import { User } from "./User";
 
-export interface Room {
-  roomId: string;
+export interface Game {
+  gameId: string;
   admin: Player;
   players: Player[];
   gameRunning: boolean;
+  word?: string;
 }
 
 export interface Player extends User {

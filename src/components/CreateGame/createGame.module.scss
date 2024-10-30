@@ -1,4 +1,4 @@
-.roomContainer {
+.gameContainer {
   margin: 0 auto;
   gap: 18px;
   display: flex;
@@ -12,7 +12,7 @@
   text-align: center;
   max-width: 500px;
 }
-.roomContainer h2 {
+.gameContainer h2 {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -28,13 +28,30 @@
   justify-content: center;
 }
 
-.createRoomButton {
+.creategameButton {
   Button {
     border: 2px solid transparent;
     transition: all 0.3s ease;
     &:hover {
       border: 2px solid #9a5b13;
       background-color: #fdf0e1;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .gameContainer {
+    max-width: 290px;
+
+    h2 {
+      font-size: 24px;
+    }
+    .actionContainer {
+      flex-direction: column;
+    }
+
+    .creategameButton Button {
+      width: 100%;
     }
   }
 }

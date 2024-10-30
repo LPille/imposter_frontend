@@ -2,22 +2,22 @@ import { useAtom } from "jotai";
 import { useQueryClient } from "@tanstack/react-query";
 import { useSocket } from "../../contexts/SocketContext";
 import { userIdAtom } from "../../atoms/userAtom";
-import { currentRoomIdAtom } from "../../atoms/roomAtom";
+import { currentGameIdAtom } from "../../atoms/gameAtom";
 import { useEffect } from "react";
 
-export const useRoomDelete = () => {
-  const [currentRoomId, setCurrentRoomId] = useAtom(currentRoomIdAtom);
+export const useGameDelete = () => {
+  const [currentGameId, setCurrentGameId] = useAtom(currentGameIdAtom);
   const { emit, on, off } = useSocket();
 
   const queryClient = useQueryClient();
 
-  const deleteRoom = (roomId: string) => {
-    emit("DELETE_ROOM", { roomId });
+  const deleteGame = (gameId: string) => {
+    emit("DELETE_GAME", { gameId });
   };
 
   useEffect(() => {
-    const handleRoomDeleted = (roomId: string) => {
-      console.log("Room Delete Success ", roomId);
+    const handleGameDeleted = (gameId: string) => {
+      console.log("Game Delete Success ", gameId);
       //queryClient.setQueryData(["room", room.roomId], room);
       /*       if (roomId === currentRoomId) {
         console.log("SET TO NULL");
@@ -28,12 +28,12 @@ export const useRoomDelete = () => {
       queryClient.invalidateQueries({ queryKey: ["rooms"] }); */
     };
 
-    on("ROOM_DELETED", handleRoomDeleted);
+    on("GAME_DELETED", handleGameDeleted);
 
     return () => {
-      off("ROOM_DELETED");
+      off("GAME_DELETED");
     };
-  }, [currentRoomId, on, off, queryClient, setCurrentRoomId]);
+  }, [currentGameId, on, off, queryClient, setCurrentGameId]);
 
-  return deleteRoom;
+  return deleteGame;
 };
