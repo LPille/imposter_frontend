@@ -1,16 +1,14 @@
 import styles from "./gameDetails.module.scss";
-import { Player, Game } from "../../types/Game";
+import { Player } from "../../../types/Game";
 import Button from "@mui/joy/Button";
-import { useGameDetail } from "../../hooks/game/useGameDetails";
+import { useGameDetail } from "../../../hooks/game/useGameDetails";
 import { useAtom } from "jotai";
-import { gameIdAtom } from "../../atoms/gameAtom";
+import { gameIdAtom } from "../../../atoms/gameAtom";
 import IconButton from "@mui/joy/IconButton";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useGameLogout } from "../../hooks/game/useGameLogout";
 import { PlayerItem } from "./PlayerItem";
-import { useGameControl } from "../../hooks/game/useGameControl";
+import { useGameControl } from "../../../hooks/game/useGameControl";
 import cx from "classnames";
-import { GameControls } from "../GameControls/GameControls";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import { useNavigate } from "react-router-dom";
 
@@ -19,10 +17,10 @@ export const GameDetails = () => {
   const navigate = useNavigate();
 
   const { game } = useGameDetail(currentGameId ?? "");
-  const logoutGame = useGameLogout();
+  const { leaveGame } = useGameControl();
 
   const handleLeaveGame = () => {
-    logoutGame();
+    leaveGame();
   };
 
   const handleNavigatToGame = () => {

@@ -2,7 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Game } from "../../types/Game";
 import { useSocket } from "../../contexts/SocketContext";
 import { useAtom } from "jotai";
-import { setGameIdAtom } from "../../atoms/gameAtom";
+import { gameIdAtom, setGameIdAtom } from "../../atoms/gameAtom";
 import { userIdAtom } from "../../atoms/userAtom";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -11,6 +11,8 @@ export const useGameControl = () => {
   const queryClient = useQueryClient();
   const { emit, on, off } = useSocket();
   const [userId] = useAtom(userIdAtom);
+  const [currentGameId] = useAtom(gameIdAtom);
+
   const navigate = useNavigate();
   const [_, setGameId] = useAtom(setGameIdAtom);
 
@@ -40,6 +42,14 @@ export const useGameControl = () => {
     emit("STOP_GAME", { gameId });
   };
 
+  const leaveGame = () => {
+    if (currentGameId) {
+      setGameId(null);
+      emit("LOGOUT_GAME", { gameId: currentGameId, userId });
+      queryClient.invalidateQueries({ queryKey: ["game", currentGameId] });
+    }
+  };
+
   useEffect(() => {
     on("GAME_CREATED", (game: Game) => {
       queryClient.invalidateQueries({ queryKey: ["games"] });
@@ -67,5 +77,13 @@ export const useGameControl = () => {
     };
   }, [on, off, queryClient, navigate]);
 
-  return { createGame, joinGame, deleteGame, startGame, nextRound, stopGame };
+  return {
+    createGame,
+    joinGame,
+    deleteGame,
+    startGame,
+    nextRound,
+    stopGame,
+    leaveGame,
+  };
 };

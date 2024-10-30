@@ -4,9 +4,9 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import Login from "./components/Login/Login";
-import Lobby from "./components/Lobby/Lobby";
-import Game from "./components/Game/Game";
+import Login from "./pages/Login/Login";
+import Lobby from "./pages/Lobby/Lobby";
+import Game from "./pages/Game/Game";
 import "./App.scss";
 import { useUserDetails } from "./hooks/user/useUser";
 import { useGameUpdates } from "./hooks/game/useGameUpdates";

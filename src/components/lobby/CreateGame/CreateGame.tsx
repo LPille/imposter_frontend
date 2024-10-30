@@ -1,9 +1,8 @@
 import { useState } from "react";
 import styles from "./createGame.module.scss";
 import Button from "@mui/joy/Button";
-import {} from "react-router-dom";
-import { useGameControl } from "../../hooks/game/useGameControl";
-import { useUserDetails } from "../../hooks/user/useUser";
+import { useGameControl } from "../../../hooks/game/useGameControl";
+import { useUserDetails } from "../../../hooks/user/useUser";
 
 import { Input } from "@mui/joy";
 import { v4 as uuidv4 } from "uuid";

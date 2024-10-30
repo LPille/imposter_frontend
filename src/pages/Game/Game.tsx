@@ -5,17 +5,20 @@ import IconButton from "@mui/joy/IconButton";
 import { useGameDetail } from "../../hooks/game/useGameDetails";
 import { useAtom } from "jotai";
 import { gameIdAtom } from "../../atoms/gameAtom";
-import { GameControls } from "../GameControls/GameControls";
+import { GameControls } from "../../components/GameControls/GameControls";
 import { userIdAtom } from "../../atoms/userAtom";
 import { blurWordAtom } from "../../atoms/blurWordAtom";
 import cx from "classnames";
 import useRandomMeme from "../../services/useRandomMeme";
+import { memes } from "../../features";
 
 const Game = () => {
   const [userId] = useAtom(userIdAtom);
   const navigate = useNavigate();
   const [currentGameId] = useAtom(gameIdAtom);
   const [blurWord, setBlurWord] = useAtom(blurWordAtom);
+
+  //const [isHeldDown, setIsHeldDown] = useState(false);
 
   const { game } = useGameDetail(currentGameId ?? "");
 
@@ -25,8 +28,15 @@ const Game = () => {
     navigate("/lobby");
   };
 
+  /*   const handleMouseDown = () => {
+    setIsHeldDown(true);
+  };
+
+  const handleMouseUp = () => {
+    setIsHeldDown(false);
+  }; */
+
   const toggleBlurWord = () => {
-    console.log("toggleBlurWord");
     if (!blurWord) fetchMeme();
     setBlurWord(!blurWord);
   };
@@ -40,10 +50,16 @@ const Game = () => {
         <h1>Lobby</h1>
       </div>
 
-      <div className={cx(styles.wordContainer)} onClick={toggleBlurWord}>
+      <div
+        className={cx(styles.wordContainer)}
+        onClick={toggleBlurWord}
+        /*    onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp} */
+      >
         <div className={cx(styles.blurContainer, blurWord && styles.blurWord)}>
-          {/*           <img src={memeUrl} alt="Random Meme" className={styles.memeImage} />
-           */}{" "}
+          {memes && (
+            <img src={memeUrl} alt="Random Meme" className={styles.memeImage} />
+          )}
         </div>
         {game &&
           userId &&

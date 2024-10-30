@@ -1,10 +1,10 @@
 import styles from "./gameList.module.scss";
 import cx from "classnames";
-import { useGameList } from "../../hooks/game/useGameList";
-import { Game } from "../../types/Game";
+import { useGameList } from "../../../hooks/game/useGameList";
+import { Game } from "../../../types/Game";
 import LoginIcon from "@mui/icons-material/Login";
 import IconButton from "@mui/joy/IconButton";
-import { useGameControl } from "../../hooks/game/useGameControl";
+import { useGameControl } from "../../../hooks/game/useGameControl";
 
 export const GameList = () => {
   const { data: gameList } = useGameList();

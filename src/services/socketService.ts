@@ -1,12 +1,11 @@
 import { io, Socket } from "socket.io-client";
+import { SERVER_URL } from "../features";
 
 let socket: Socket | null = null;
-//const SOCKET_URL = "http://localhost:3001";
-const SOCKET_URL = "http://192.168.2.63:3001";
 
 export const connectSocket = (): Socket => {
   if (!socket) {
-    socket = io(SOCKET_URL, {
+    socket = io(SERVER_URL, {
       reconnectionAttempts: 5,
       reconnectionDelay: 3000,
     });
@@ -28,19 +27,4 @@ export const disconnectSocket = () => {
     socket.disconnect();
     socket = null;
   }
-};
-
-export const emitEvent = (event: string, data?: any) => {
-  if (!socket) return;
-  socket.emit(event, data);
-};
-
-export const onEvent = (event: string, callback: (data: any) => void) => {
-  if (!socket) return;
-  socket.on(event, callback);
-};
-
-export const offEvent = (event: string) => {
-  if (!socket) return;
-  socket.off(event);
 };

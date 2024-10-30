@@ -1,8 +1,8 @@
 import styles from "./gameDetails.module.scss";
-import { Player, Game } from "../../types/Game";
+import { Player } from "../../../types/Game";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/joy/IconButton";
-import { useLogoutUserFromGame } from "../../hooks/user/useUser";
+import { useLogoutUserFromGame } from "../../../hooks/user/useUser";
 import cx from "classnames";
 
 interface PlayerItemProps {

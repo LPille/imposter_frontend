@@ -3,13 +3,11 @@ import axios from "axios";
 import { User } from "../../types/User";
 import { setUserIdAtom, userIdAtom } from "../../atoms/userAtom";
 import { useAtom } from "jotai";
-
-//const USER_URL = "http://localhost:3001/api/users";
-const USER_URL = "http://192.168.2.63:3001/api/users";
+import { API_URL } from "../../features";
 
 const fetchUserById = async (userId: string) => {
   try {
-    const { data } = await axios.get<User>(`${USER_URL}/${userId}`);
+    const { data } = await axios.get<User>(`${API_URL}/users/${userId}`);
     return data;
   } catch (error: any) {
     if (error.response?.status === 404) {
@@ -21,17 +19,17 @@ const fetchUserById = async (userId: string) => {
 };
 
 const createUser = async (userData: User) => {
-  const { data } = await axios.post<User>(`${USER_URL}`, userData);
+  const { data } = await axios.post<User>(`${API_URL}/users`, userData);
   return data;
 };
 
 const logoutUser = async (userId: string) => {
-  const { data } = await axios.delete<User>(`${USER_URL}/${userId}`);
+  const { data } = await axios.delete<User>(`${API_URL}/users/${userId}`);
   return data;
 };
 
 const fetchUserList = async () => {
-  const { data } = await axios.get(`${USER_URL}`);
+  const { data } = await axios.get(`${API_URL}/users`);
   return data;
 };
 
