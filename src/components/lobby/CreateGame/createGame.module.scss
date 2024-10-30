@@ -30,11 +30,12 @@
 
 .creategameButton {
   Button {
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
+    width: 100% !important;
+    border: 2px solid transparent !important;
+    transition: all 0.3s ease !important;
     &:hover {
-      border: 2px solid #9a5b13;
-      background-color: #fdf0e1;
+      border: 2px solid #9a5b13 !important;
+      background-color: #fdf0e1 !important;
     }
   }
 }
